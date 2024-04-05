@@ -1,4 +1,4 @@
-import { Card, Filter } from "../../components";
+import { Card, Filter, Map } from "../../components";
 import { propertiesData } from "../../lib";
 import "./properties.scss";
 
@@ -12,20 +12,13 @@ function Properties() {
             {propertiesData.map((property) => (
               <Card key={property.id} property={property} />
             ))}
-            {propertiesData.map((property) => (
-              <Card key={property.id} property={property} />
-            ))}
-            {propertiesData.map((property) => (
-              <Card key={property.id} property={property} />
-            ))}
-            {propertiesData.map((property) => (
-              <Card key={property.id} property={property} />
-            ))}
           </div>
         </div>
       </div>
 
-      <div className="map-container">map</div>
+      <div className="map-container">
+        <Map properties={propertiesData} />
+      </div>
     </div>
   );
 }
