@@ -1,12 +1,32 @@
+@import "../../scss/responsive.scss";
+
 .property {
   display: flex;
-  height: 100%;
+  padding-bottom: 40px;
+
+  @include md {
+    flex-direction: column;
+  }
+
+  @include sm {
+    padding-bottom: 0;
+  }
 
   .details {
     flex: 3;
 
+    @include md {
+      flex: none;
+      height: max-content;
+      margin-bottom: 40px;
+    }
+
     .details-wrapper {
       padding-right: 50px;
+
+      @include sm {
+        padding: 0;
+      }
 
       .info {
         margin-top: 42px;
@@ -59,6 +79,10 @@
             font-weight: 600;
             background: rgba(254, 205, 81, 0.209);
 
+            @include sm {
+              padding: 0 24px;
+            }
+
             img {
               width: 48px;
               height: 48px;
@@ -80,9 +104,127 @@
   .features {
     flex: 2;
     background: #fcf5f3;
+    padding-bottom: 20px;
+    height: 100%;
+    overflow-y: scroll;
+
+    @include md {
+      flex: none;
+      height: max-content;
+    }
 
     .features-wrapper {
       padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+
+      @include sm {
+        padding: 0 6px;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      .feature {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        img {
+          background: rgba(254, 205, 81, 0.209);
+        }
+
+        .feature-title {
+          span {
+            font-weight: bold;
+            text-transform: capitalize;
+          }
+
+          p {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .vertical-render {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 16px;
+        background: #fff;
+        border-radius: 16px 8px;
+      }
+
+      .horizontal-render {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 16px;
+        background: #fff;
+        border-radius: 16px 8px;
+      }
+
+      .sizes {
+        display: flex;
+        justify-content: space-between;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 16px;
+
+        @include lg {
+          font-size: 12px;
+        }
+
+        .size {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          background: #fff;
+          padding: 8px;
+          border-radius: 8px;
+        }
+      }
+
+      .map-container {
+        width: 100%;
+        height: 200px;
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+          padding: 10px 20px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: white;
+          border: 0.5px solid #fece51;
+          border-radius: 4px;
+
+          img {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
     }
+  }
+
+  .features::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
   }
 }

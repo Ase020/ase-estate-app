@@ -1,0 +1,81 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  .messages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    overflow-y: scroll;
+
+    h2 {
+      font-weight: 300;
+    }
+
+    .messages-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 16px 0;
+    }
+  }
+
+  .chat-box {
+    flex: 1;
+    position: sticky;
+    position: -webkit-sticky; /* For Safari */
+    bottom: 0;
+    background: red;
+  }
+}
+
+.message {
+  display: flex;
+  gap: 16px;
+  height: max-content;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+
+  img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    em {
+      font-size: 16px;
+      font-style: italic;
+
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      /* Number of lines to show */
+      -webkit-line-clamp: 1; /* For compatibility with some browsers */
+      /* Modern browsers */
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      /* For newer browsers supporting the line-clamp property */
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}

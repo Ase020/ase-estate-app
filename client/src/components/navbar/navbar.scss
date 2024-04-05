@@ -59,6 +59,46 @@
       background: transparent;
     }
 
+    .user {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 16px;
+      }
+
+      span {
+        @include sm {
+          display: none;
+        }
+      }
+
+      a {
+        padding: 10px 20px;
+        background: #fece51;
+        position: relative;
+
+        small {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: red;
+          color: white;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+
     a {
       padding: 12px 24px;
       margin: 20px;
@@ -105,6 +145,26 @@
       @include sm {
         a {
           display: initial;
+        }
+      }
+
+      .profile {
+        padding: 10px 20px;
+        background: #fece51;
+        position: relative;
+
+        small {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: red;
+          color: white;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
