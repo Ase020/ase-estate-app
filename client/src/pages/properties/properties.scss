@@ -1,0 +1,45 @@
+.properties {
+  display: flex;
+  height: 100%;
+
+  .properties-container {
+    flex: 3;
+    height: 100%;
+
+    .wrapper {
+      padding: 0 40px 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+
+      .properties-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+        overflow-y: scroll;
+        height: 100%;
+        padding-right: 8px;
+      }
+
+      .properties-wrapper::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .properties-wrapper::-webkit-scrollbar-track {
+        border-radius: 6px;
+        background-color: transparent;
+      }
+
+      .properties-wrapper::-webkit-scrollbar-thumb {
+        border-radius: 6px;
+        background-color: #e0e0e0;
+      }
+    }
+  }
+
+  .map-container {
+    flex: 2;
+    background: #fcf5f3;
+  }
+}

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import "./navbar.scss";
 
 const Navbar = () => {
@@ -7,22 +9,22 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="left">
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           <img src="/logo.png" alt="logo" className="logo-img" />
           <span>aseEstates</span>
-        </a>
+        </Link>
 
-        <a href="/">Home</a>
-        <a href="/">About</a>
-        <a href="/">Contact</a>
-        <a href="/">Agents</a>
+        <Link to="/">Home</Link>
+        <Link to="/">About</Link>
+        <Link to="/">Contact</Link>
+        <Link to="/">Agents</Link>
       </div>
 
       <div className="right">
-        <a href="/">Sign In</a>
-        <a href="/" className="sign-up">
+        <Link to="/login">Sign In</Link>
+        <Link to="/signup" className="sign-up">
           Sign Ip
-        </a>
+        </Link>
 
         <div className="menu-icon">
           <img
@@ -33,12 +35,12 @@ const Navbar = () => {
         </div>
 
         <div className={open ? "menu active" : "menu"}>
-          <a href="/">Home</a>
-          <a href="/">About</a>
-          <a href="/">Contact</a>
-          <a href="/">Agents</a>
-          <a href="/">Sign In</a>
-          <a href="/">Sign Up</a>
+          <Link to="/">Home</Link>
+          <Link to="/">About</Link>
+          <Link to="/">Contact</Link>
+          <Link to="/">Agents</Link>
+          <Link to="/">Sign In</Link>
+          <Link to="/">Sign Up</Link>
         </div>
       </div>
     </nav>
