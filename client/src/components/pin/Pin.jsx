@@ -11,7 +11,9 @@ function Pin({ property }) {
 
           <div className="desc-container">
             <Link to={`/properties/${property.id}`}>{property.title}</Link>
+
             <span>{property.bedroom} bedrooms</span>
+
             <b>$ {property.price}</b>
           </div>
         </div>

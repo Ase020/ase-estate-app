@@ -89,7 +89,7 @@ export const propertiesData = [
   },
 ];
 
-export const singlePostData = {
+export const propertyData = {
   id: 1,
   title: "Beautiful Apartment",
   price: 1200,
