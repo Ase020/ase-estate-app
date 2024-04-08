@@ -153,8 +153,8 @@ const MessageCard = ({ setChat }) => {
       <div className="message-content">
         <span>Felix Olali</span>
         <em>
-          Hello, hope you're well and safe. Hello, hope you're well and safe.
-          Hello, hope you're well and safe.
+          Hello, hope you&apos;re well and safe. Hello, hope you&apos;re well
+          and safe. Hello, hope you&apos;re well and safe.
         </em>
       </div>
     </div>
