@@ -1,3 +1,5 @@
+@import "../../scss/responsive.scss";
+
 .chat {
   display: flex;
   flex-direction: column;
@@ -21,15 +23,98 @@
       flex-direction: column;
       gap: 24px;
       padding: 16px 0;
+      max-height: 400px;
     }
   }
 
   .chat-box {
     flex: 1;
     position: sticky;
-    position: -webkit-sticky; /* For Safari */
+    position: -webkit-sticky;
     bottom: 0;
-    background: red;
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .top {
+      background: #f7c14b85;
+      padding: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        img {
+          width: 32px;
+          height: 32px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        .username {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .center {
+      overflow: scroll;
+      height: 350px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .chat-message {
+        width: 50%;
+
+        &.my-message {
+          align-self: flex-end;
+          text-align: right;
+        }
+
+        p {
+          font-size: 14px;
+        }
+
+        span {
+          font-size: 12px;
+          background: #f7c14b85;
+          padding: 2px;
+          border-radius: 4px;
+        }
+      }
+    }
+
+    form.bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #f7c14b85;
+      height: 60px;
+
+      .text-area {
+        flex: 4;
+        border: none;
+        outline: none;
+        height: 100%;
+        padding: 16px;
+      }
+
+      button {
+        flex: 1;
+        background: #f7c14b85;
+        height: 100%;
+        border: none;
+      }
+    }
   }
 }
 
@@ -41,6 +126,7 @@
   padding: 12px;
   background: white;
   border-radius: 8px;
+  cursor: pointer;
 
   img {
     width: 48px;
@@ -66,12 +152,9 @@
       display: -webkit-box;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      /* Number of lines to show */
-      -webkit-line-clamp: 1; /* For compatibility with some browsers */
-      /* Modern browsers */
+      -webkit-line-clamp: 1;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      /* For newer browsers supporting the line-clamp property */
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;

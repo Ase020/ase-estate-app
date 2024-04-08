@@ -1,3 +1,5 @@
+@import "../../scss/responsive.scss";
+
 .card {
   display: flex;
   gap: 20px;
@@ -5,6 +7,10 @@
   padding-right: 6px;
   border-radius: 6px;
   transition: all 0.4s ease;
+
+  @include sm {
+    gap: 10px;
+  }
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
@@ -30,10 +36,29 @@
     gap: 8px;
     padding: 6px 0;
 
+    @include sm {
+      flex: 2;
+      padding: 0;
+    }
+
     .title {
       font-size: 18px;
       font-weight: 600;
       color: #444;
+
+      @include sm {
+        font-size: 16px;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+        /* Modern browsers */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
     }
 
     img {
@@ -65,10 +90,18 @@
       justify-content: space-between;
       gap: 8px;
 
+      @include sm {
+        flex-direction: column;
+      }
+
       .features {
         display: flex;
         gap: 18px;
         font-size: 14px;
+
+        @include sm {
+          gap: 8px;
+        }
 
         .feature {
           display: flex;
@@ -77,6 +110,11 @@
           background: whitesmoke;
           padding: 4px;
           border-radius: 4px;
+
+          @include sm {
+            gap: 4px;
+            font-size: 10px;
+          }
         }
       }
 
@@ -84,6 +122,11 @@
         display: flex;
         align-items: center;
         gap: 16px;
+
+        @include sm {
+          width: 100%;
+          justify-content: space-between;
+        }
 
         .icon {
           border: 0.5px solid #999;
