@@ -8,6 +8,8 @@ import {
   Profile,
   Signup,
   Property,
+  NewProperty,
+  EditProfile,
 } from "./pages";
 
 function App() {
@@ -19,7 +21,9 @@ function App() {
         { path: "/", element: <Home /> },
         { path: "/properties", element: <Properties /> },
         { path: "/properties/:id", element: <Property /> },
+        { path: "/properties/add", element: <NewProperty /> },
         { path: "/profile", element: <Profile /> },
+        { path: "/profile/:id", element: <EditProfile /> },
         { path: "/login", element: <Login /> },
         { path: "/signup", element: <Signup /> },
       ],
