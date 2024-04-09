@@ -3,8 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 
-import postRoute from "./routes/post.route.js";
 import authRouter from "./routes/auth.route.js";
+import postRoute from "./routes/post.route.js";
 import testRouter from "./routes/test.route.js";
 
 const app = express();
