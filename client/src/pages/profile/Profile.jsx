@@ -27,7 +27,7 @@ function Profile() {
           <div className="title">
             <h2>User Information</h2>
 
-            <Link to={`/profile/${currentUser?.id}`}>Update Profile</Link>
+            <Link to="/profile/update">Update Profile</Link>
           </div>
 
           <div className="info">

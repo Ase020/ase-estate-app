@@ -34,7 +34,7 @@ function App() {
           path: "/profile",
           element: <Profile />,
         },
-        { path: "/profile/:id", element: <EditProfile /> },
+        { path: "/profile/update", element: <EditProfile /> },
         { path: "/properties/add", element: <NewProperty /> },
       ],
     },

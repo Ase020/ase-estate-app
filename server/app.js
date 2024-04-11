@@ -6,6 +6,7 @@ import express from "express";
 import authRouter from "./routes/auth.route.js";
 import postRoute from "./routes/post.route.js";
 import testRouter from "./routes/test.route.js";
+import userRouter from "./routes/user.route.js";
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use("/api/posts", postRoute);
 app.use("/api/auth", authRouter);
 app.use("/api/test", testRouter);
+app.use("/api/users", userRouter);
 
 app.listen(8800, () => console.log("Server is running!"));
