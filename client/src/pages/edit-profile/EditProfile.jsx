@@ -1,13 +1,31 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { AuthContext } from "../../context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
 import "./edit-profile.scss";
 
 function EditProfile() {
-  const { currentUser, editUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const { currentUser, updateUser } = useContext(AuthContext);
 
-  const handleSubmit = async(e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const { username, email, password } = Object.fromEntries(formData);
+
+    try {
+      const res = await apiRequest.put(`/users/${currentUser.id}`, {
+        username,
+        email,
+        password,
+      });
+      console.log(res.data);
+      updateUser(res.data);
+    } catch (err) {
+      console.error(err);
+      setError(err.response.data.message);
+    }
   };
 
   return (
@@ -38,12 +56,13 @@ function EditProfile() {
             <input id="password" name="password" type="password" />
           </div>
           <button type="submit">Update</button>
+          {error && <span>{error}</span>}
         </form>
       </div>
       <div className="sideContainer">
         <img
           src={currentUser.avatar || "/noavatar.jpg"}
-          alt="avat"
+          alt="avatar"
           className="avatar"
         />
       </div>
