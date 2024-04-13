@@ -7,3 +7,4 @@ export { default as Navbar } from "./navbar/Navbar";
 export { default as Pin } from "./pin/Pin";
 export { default as SearchBar } from "./search-bar/SearchBar";
 export { default as Slider } from "./slider/Slider";
+export { default as UploadWidget } from "./uploadWidget/UploadWidget";

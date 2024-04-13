@@ -1,12 +1,18 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 import "./edit-profile.scss";
+import { UploadWidget } from "../../components";
 
 function EditProfile() {
-  const [error, setError] = useState("");
   const { currentUser, updateUser } = useContext(AuthContext);
+
+  const [error, setError] = useState("");
+  const [avatar, setAvatar] = useState(currentUser.avatar);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +25,10 @@ function EditProfile() {
         username,
         email,
         password,
+        avatar,
       });
-      console.log(res.data);
       updateUser(res.data);
+      navigate("/profile");
     } catch (err) {
       console.error(err);
       setError(err.response.data.message);
@@ -60,10 +67,17 @@ function EditProfile() {
         </form>
       </div>
       <div className="sideContainer">
-        <img
-          src={currentUser.avatar || "/noavatar.jpg"}
-          alt="avatar"
-          className="avatar"
+        <img src={avatar || "/noavatar.jpg"} alt="avatar" className="avatar" />
+
+        <UploadWidget
+          uwConfig={{
+            cloudName: "dyzqsffhe",
+            uploadPreset: "estate",
+            multiple: false,
+            maxImageFileSize: 2000000,
+            folder: "avatars",
+          }}
+          setAvatar={setAvatar}
         />
       </div>
     </div>
