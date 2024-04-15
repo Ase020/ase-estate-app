@@ -10,7 +10,7 @@ function EditProfile() {
   const { currentUser, updateUser } = useContext(AuthContext);
 
   const [error, setError] = useState("");
-  const [avatar, setAvatar] = useState(currentUser.avatar);
+  const [avatar, setAvatar] = useState([]);
 
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ function EditProfile() {
         username,
         email,
         password,
-        avatar,
+        avatar: avatar[0],
       });
       updateUser(res.data);
       navigate("/profile");
@@ -67,17 +67,21 @@ function EditProfile() {
         </form>
       </div>
       <div className="sideContainer">
-        <img src={avatar || "/noavatar.jpg"} alt="avatar" className="avatar" />
+        <img
+          src={avatar[0] || currentUser.avatar || "/noavatar.jpg"}
+          alt="avatar"
+          className="avatar"
+        />
 
         <UploadWidget
           uwConfig={{
             cloudName: "dyzqsffhe",
             uploadPreset: "estate",
             multiple: false,
-            maxImageFileSize: 2000000,
+            maxImageFileSize: 4000000,
             folder: "avatars",
           }}
-          setAvatar={setAvatar}
+          setState={setAvatar}
         />
       </div>
     </div>
