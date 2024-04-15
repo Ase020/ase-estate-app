@@ -1,12 +1,34 @@
 import DOMPurify from "dompurify";
-import { useLoaderData } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 import { Map, Slider } from "../../components";
+import { AuthContext } from "../../context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
+
 import "./property.scss";
 
 function Property() {
   const property = useLoaderData();
+  const [saved, setSaved] = useState(property.isSaved);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
+  const savePlace = async () => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+
+    setSaved((prev) => !prev);
+    try {
+      await apiRequest.post("/users/save", {
+        postId: property.id,
+      });
+    } catch (error) {
+      setSaved((prev) => !prev);
+      console.log("Error: ", error);
+    }
+  };
   return (
     <div className="property">
       <div className="details">
@@ -158,9 +180,15 @@ function Property() {
               <span>Send a Message</span>
             </button>
 
-            <button type="button">
+            <button
+              type="button"
+              onClick={savePlace}
+              style={{
+                background: saved ? "#fece51" : "white",
+              }}
+            >
               <img src="/save.png" alt="save" />
-              <span>Save the Place</span>
+              <span>{saved ? "Place saved" : "Save the Place"}</span>
             </button>
           </div>
         </div>
