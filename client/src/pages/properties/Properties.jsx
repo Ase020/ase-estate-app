@@ -1,8 +1,9 @@
-import { useLoaderData } from "react-router-dom";
+import { Await, useLoaderData } from "react-router-dom";
 
 import { Card, Filter, Map } from "../../components";
 
 import "./properties.scss";
+import { Suspense } from "react";
 
 function Properties() {
   const properties = useLoaderData();
@@ -12,15 +13,33 @@ function Properties() {
         <div className="wrapper">
           <Filter />
           <div className="properties-wrapper">
-            {properties.map((property) => (
-              <Card key={property.id} property={property} />
-            ))}
+            <Suspense fallback={<p>Loading...</p>}>
+              <Await
+                resolve={properties.propertiesResponse}
+                errorElement={<p>Error loading properties!</p>}
+              >
+                {(propertiesResponse) =>
+                  propertiesResponse.data.map((property) => (
+                    <Card key={property.id} property={property} />
+                  ))
+                }
+              </Await>
+            </Suspense>
           </div>
         </div>
       </div>
 
       <div className="map-container">
-        <Map properties={properties} />
+        <Suspense fallback={<p>Loading...</p>}>
+          <Await
+            resolve={properties.propertiesResponse}
+            errorElement={<p>Error loading properties!</p>}
+          >
+            {(propertiesResponse) => (
+              <Map properties={propertiesResponse.data} />
+            )}
+          </Await>
+        </Suspense>
       </div>
     </div>
   );

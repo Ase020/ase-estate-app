@@ -7,7 +7,7 @@ function Pin({ property }) {
     <Marker position={[property.latitude, property.longitude]}>
       <Popup>
         <div className="popup-container">
-          <img src={property.img} alt={property.title} />
+          <img src={property.images[0]} alt={property.title} />
 
           <div className="desc-container">
             <Link to={`/properties/${property.id}`}>{property.title}</Link>
