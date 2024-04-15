@@ -9,13 +9,8 @@ function Filter() {
 
       <div className="top">
         <div className="item">
-          <label htmlFor="city">Location</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            placeholder="City Location"
-          />
+          <label htmlFor="city">City</label>
+          <input type="text" id="city" name="city" placeholder="City" />
         </div>
       </div>
 

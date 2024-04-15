@@ -12,6 +12,7 @@ import {
   Layout,
   RequireAuth,
 } from "./pages";
+import { propertiesLoader, propertyLoader } from "./lib/loaders";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,8 +21,16 @@ function App() {
       element: <Layout />,
       children: [
         { path: "/", element: <Home /> },
-        { path: "/properties", element: <Properties /> },
-        { path: "/properties/:id", element: <Property /> },
+        {
+          path: "/properties",
+          element: <Properties />,
+          loader: propertiesLoader,
+        },
+        {
+          path: "/properties/:id",
+          element: <Property />,
+          loader: propertyLoader,
+        },
         { path: "/login", element: <Login /> },
         { path: "/signup", element: <Signup /> },
       ],

@@ -9,7 +9,11 @@ function Map({ properties }) {
 
   return (
     <MapContainer
-      center={position}
+      center={
+        properties.length === 1
+          ? [properties[0].latitude, properties[0].longitude]
+          : position
+      }
       zoom={7}
       scrollWheelZoom={false}
       className="map"

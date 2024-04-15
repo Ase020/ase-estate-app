@@ -80,11 +80,14 @@
       }
     }
 
-    button {
+    a {
       border: none;
       cursor: pointer;
       background: #fece51;
       flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       @include sm {
         padding: 10px;
@@ -93,6 +96,7 @@
       img {
         width: 24px;
         height: 24px;
+        background: transparent;
       }
     }
   }

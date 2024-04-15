@@ -5,7 +5,7 @@ function Card({ property }) {
   return (
     <Link to={`/properties/${property.id}`} className="card">
       <div className="image-container">
-        <img src={property.img} alt={property.title} />
+        <img src={property.images[0]} alt={property.title} />
       </div>
 
       <div className="description-container">
@@ -22,12 +22,20 @@ function Card({ property }) {
           <div className="features">
             <div className="feature">
               <img src="/bed.png" alt="bed" />
-              <span>{property.bedroom} bedrooms</span>
+              <span>
+                {property.bedroom === 1
+                  ? property.bedroom + " bedroom"
+                  : property.bedroom + " bedrooms"}
+              </span>
             </div>
 
             <div className="feature">
               <img src="/bath.png" alt="bathroom" />
-              <span>{property.bathroom} bathrooms</span>
+              <span>
+                {property.bedroom === 1
+                  ? property.bathroom + " bathroom"
+                  : property.bathroom + " bathrooms"}
+              </span>
             </div>
           </div>
 

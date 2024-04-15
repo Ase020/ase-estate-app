@@ -1,34 +1,46 @@
+import DOMPurify from "dompurify";
+import { useLoaderData } from "react-router-dom";
+
 import { Map, Slider } from "../../components";
-import { propertyData, userData } from "../../lib";
 import "./property.scss";
 
 function Property() {
+  const property = useLoaderData();
+
   return (
     <div className="property">
       <div className="details">
         <div className="details-wrapper">
-          <Slider images={propertyData.images} />
+          <Slider images={property.images} />
 
           <div className="info">
             <div className="top">
               <div className="post">
-                <h1>{propertyData.title}</h1>
+                <h1>{property.title}</h1>
 
                 <div className="address">
                   <img src="/pin.png" alt="pin" />
-                  <span>{propertyData.address}</span>
+                  <span>{property.address}</span>
                 </div>
 
-                <span className="price">$ {propertyData.price}</span>
+                <span className="price">$ {property.price}</span>
               </div>
 
               <div className="user">
-                <img src={userData.img} alt={userData.name} />
-                <span>{userData.name}</span>
+                <img
+                  src={property.user.avatar || "/noavatar.jpg"}
+                  alt={property.user.username}
+                />
+                <span>{property.user.username}</span>
               </div>
             </div>
 
-            <p className="bottom">{propertyData.description}</p>
+            <div
+              className="bottom"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(property.postDetail.description),
+              }}
+            />
           </div>
         </div>
       </div>
@@ -41,7 +53,11 @@ function Property() {
               <img src="/utility.png" alt="utility" />
               <div className="feature-title">
                 <span>Utilities</span>
-                <p>Renter is responsible</p>
+                {property.postDetail.utilities === "owner" ? (
+                  <p>Owner is responsible</p>
+                ) : (
+                  <p>Tenant is responsible</p>
+                )}
               </div>
             </div>
 
@@ -49,15 +65,19 @@ function Property() {
               <img src="/pet.png" alt="pet" />
               <div className="feature-title">
                 <span>Pet Policy</span>
-                <p>Pets allowed</p>
+                {property.postDetail.petPolicy === "allowed" ? (
+                  <p>Pets Allowed</p>
+                ) : (
+                  <p>Pets not Allowed</p>
+                )}
               </div>
             </div>
 
             <div className="feature">
               <img src="/fee.png" alt="fee" />
               <div className="feature-title">
-                <span>Property Fees</span>
-                <p>Must have 3X the rent in total household income</p>
+                <span>Income Policy</span>
+                <p>{property.postDetail.income}</p>
               </div>
             </div>
           </div>
@@ -66,17 +86,22 @@ function Property() {
           <div className="sizes">
             <div className="size">
               <img src="/size.png" alt="size" />
-              <span>80sqft</span>
+              <span>{property.postDetail.size} sqft</span>
             </div>
 
             <div className="size">
               <img src="/bed.png" alt="bed" />
-              <span>2 beds</span>
+              <span>
+                {property.bedroom} {property.bedroom === 1 ? "bed" : "beds"}
+              </span>
             </div>
 
             <div className="size">
               <img src="/bath.png" alt="bath" />
-              <span>1 bathroom</span>
+              <span>
+                {property.bathroom}{" "}
+                {property.bathroom === 1 ? "bathroom" : "bathrooms"}
+              </span>
             </div>
           </div>
 
@@ -86,7 +111,12 @@ function Property() {
               <img src="/school.png" alt="school" />
               <div className="feature-title">
                 <span>School</span>
-                <p>250m away</p>
+                <p>
+                  {property.postDetail.school < 1000
+                    ? property.postDetail.school + "m"
+                    : property.postDetail.school / 1000 + "km"}{" "}
+                  away
+                </p>
               </div>
             </div>
 
@@ -94,7 +124,12 @@ function Property() {
               <img src="/bus.png" alt="bus" />
               <div className="feature-title">
                 <span>Bus Stop</span>
-                <p>100m away</p>
+                <p>
+                  {property.postDetail.bus < 1000
+                    ? property.postDetail.bus + "m"
+                    : property.postDetail.bus / 1000 + "km"}{" "}
+                  away
+                </p>
               </div>
             </div>
 
@@ -102,14 +137,19 @@ function Property() {
               <img src="/restaurant.png" alt="restaurant" />
               <div className="feature-title">
                 <span>Restaurant</span>
-                <p>200m away</p>
+                <p>
+                  {property.postDetail.restaurant < 1000
+                    ? property.postDetail.restaurant + "m"
+                    : property.postDetail.restaurant / 1000 + "km"}{" "}
+                  away
+                </p>
               </div>
             </div>
           </div>
 
           <p className="title">Location</p>
           <div className="map-container">
-            <Map properties={[propertyData]} />
+            <Map properties={[property]} />
           </div>
 
           <div className="btn-container">

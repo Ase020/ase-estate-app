@@ -1,15 +1,18 @@
+import { useLoaderData } from "react-router-dom";
+
 import { Card, Filter, Map } from "../../components";
-import { propertiesData } from "../../lib";
+
 import "./properties.scss";
 
 function Properties() {
+  const properties = useLoaderData();
   return (
     <div className="properties">
       <div className="properties-container">
         <div className="wrapper">
           <Filter />
           <div className="properties-wrapper">
-            {propertiesData.map((property) => (
+            {properties.map((property) => (
               <Card key={property.id} property={property} />
             ))}
           </div>
@@ -17,7 +20,7 @@ function Properties() {
       </div>
 
       <div className="map-container">
-        <Map properties={propertiesData} />
+        <Map properties={properties} />
       </div>
     </div>
   );
