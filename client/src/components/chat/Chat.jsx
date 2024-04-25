@@ -1,14 +1,21 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { format } from "timeago.js";
 
 import "./chat.scss";
 import { AuthContext } from "../../context/AuthContext";
+import { SocketContext } from "../../context/SocketContext";
 import apiRequest from "../../lib/apiRequest";
 
 export default function Chat(chats) {
   const { currentUser } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
   const [showChat, setShowChat] = useState(null);
+  const messageEndRef = useRef();
+
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [showChat]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,12 +31,42 @@ export default function Chat(chats) {
         ...prev,
         messages: [...prev.messages, res.data],
       }));
-
       e.target.reset();
+
+      socket.emit("sendMessage", {
+        receiverId: showChat.chatReceiver.id,
+        data: res.data,
+      });
     } catch (error) {
-      console.log("Error: ", error.response.data.message, showChat.id);
+      console.log("Error: ", error);
     }
   };
+
+  useEffect(() => {
+    const read = async () => {
+      try {
+        apiRequest.put(`/chats/read/${showChat.id}`);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    };
+
+    if (showChat && socket) {
+      socket.on("getMessage", (data) => {
+        if (showChat.id === data.chatId) {
+          setShowChat((prev) => ({
+            ...prev,
+            messages: [...prev.messages, data],
+          }));
+          read();
+        }
+      });
+    }
+
+    return () => {
+      socket.off("getMessage");
+    };
+  }, [showChat, socket]);
 
   return (
     <div className="chat">
@@ -41,6 +78,7 @@ export default function Chat(chats) {
             chats.chats.map((chat) => (
               <MessageCard
                 key={chat.id}
+                showChat={showChat}
                 setShowChat={setShowChat}
                 chat={chat}
               />
@@ -85,6 +123,8 @@ export default function Chat(chats) {
                 <span>{format(message.createdAt)}</span>
               </div>
             ))}
+
+            <div ref={messageEndRef} />
           </div>
 
           <form className="bottom" onSubmit={handleSubmit}>
@@ -101,7 +141,7 @@ export default function Chat(chats) {
   );
 }
 
-const MessageCard = ({ chat, setShowChat }) => {
+const MessageCard = ({ chat, setShowChat, showChat }) => {
   const { currentUser } = useContext(AuthContext);
 
   const handleOpenChat = async (chatId, chatReceiver) => {
@@ -117,9 +157,10 @@ const MessageCard = ({ chat, setShowChat }) => {
       className="message"
       onClick={() => handleOpenChat(chat.id, chat.receiver)}
       style={{
-        backgroundColor: chat.seenBy.includes(currentUser.id)
-          ? "white"
-          : "#fecd514e",
+        backgroundColor:
+          chat.seenBy.includes(currentUser.id) || showChat?.id === chat.id
+            ? "white"
+            : "#fecd514e",
       }}
     >
       <img
