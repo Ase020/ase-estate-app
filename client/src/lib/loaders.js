@@ -16,8 +16,10 @@ export const propertiesLoader = async ({ request, params }) => {
 };
 
 export const profileLoader = async () => {
-  const propertiesPromise = apiRequest(`/users/profile-posts`);
+  const profilePromise = apiRequest(`/users/profile-posts`);
+  const chatPromise = apiRequest(`/chats`);
   return defer({
-    propertiesResponse: propertiesPromise,
+    profileResponse: profilePromise,
+    chatResponse: chatPromise,
   });
 };

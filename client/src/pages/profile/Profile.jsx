@@ -55,11 +55,11 @@ function Profile() {
 
           <Suspense fallback={<p>Loading...</p>}>
             <Await
-              resolve={profileProperties.propertiesResponse}
+              resolve={profileProperties.profileResponse}
               errorElement={<p>Error loading properties!</p>}
             >
-              {(propertiesResponse) => (
-                <List posts={propertiesResponse.data.userPosts} />
+              {(profileResponse) => (
+                <List posts={profileResponse.data.userPosts} />
               )}
             </Await>
           </Suspense>
@@ -70,11 +70,11 @@ function Profile() {
 
           <Suspense fallback={<p>Loading...</p>}>
             <Await
-              resolve={profileProperties.propertiesResponse}
-              errorElement={<p>Error loading properties!</p>}
+              resolve={profileProperties.profileResponse}
+              errorElement={<p>Error loading saved properties!</p>}
             >
-              {(propertiesResponse) => (
-                <List posts={propertiesResponse.data.savedPosts} />
+              {(profileResponse) => (
+                <List posts={profileResponse.data.savedPosts} />
               )}
             </Await>
           </Suspense>
@@ -83,7 +83,14 @@ function Profile() {
 
       <div className="chat-container">
         <div className="wrapper">
-          <Chat />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={profileProperties.chatResponse}
+              errorElement={<p>Error loading chats!</p>}
+            >
+              {(chatResponse) => <Chat chats={chatResponse.data} />}
+            </Await>
+          </Suspense>
         </div>
       </div>
     </div>
