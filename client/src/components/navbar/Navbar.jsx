@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 
 import "./navbar.scss";
 import { AuthContext } from "../../context/AuthContext";
+import { useNotificationStore } from "../../lib/notificationStore";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
+
+  const fetchNotifications = useNotificationStore((state) => state.fetch);
+  const fetchNotificationNumber = useNotificationStore((state) => state.number);
+
+  if (currentUser) fetchNotifications();
 
   return (
     <nav className="navbar">
@@ -30,7 +36,9 @@ const Navbar = () => {
             <span>{currentUser?.username}</span>
 
             <Link to="/profile">
-              <small>3</small>
+              {fetchNotificationNumber > 0 && (
+                <small>{fetchNotificationNumber}</small>
+              )}
               <span>Profile</span>
             </Link>
           </div>

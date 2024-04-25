@@ -6,6 +6,7 @@ import "./chat.scss";
 import { AuthContext } from "../../context/AuthContext";
 import { SocketContext } from "../../context/SocketContext";
 import apiRequest from "../../lib/apiRequest";
+import { useNotificationStore } from "../../lib/notificationStore";
 
 export default function Chat(chats) {
   const { currentUser } = useContext(AuthContext);
@@ -143,10 +144,16 @@ export default function Chat(chats) {
 
 const MessageCard = ({ chat, setShowChat, showChat }) => {
   const { currentUser } = useContext(AuthContext);
+  const decrease = useNotificationStore((state) => state.decrease);
 
   const handleOpenChat = async (chatId, chatReceiver) => {
     try {
       const response = await apiRequest.get(`/chats/${chatId}`);
+
+      if (!response.data.seenBy.includes(currentUser.id)) {
+        decrease();
+      }
+
       setShowChat({ ...response.data, chatReceiver });
     } catch (error) {
       console.log("Error: ", error);
