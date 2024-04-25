@@ -62,7 +62,7 @@ function SearchBar() {
         <Link
           to={`/properties?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}
         >
-          <img src="/search.png" alt="" />
+          <img src="/search.png" alt="search" />
         </Link>
       </form>
     </div>

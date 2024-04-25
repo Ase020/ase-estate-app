@@ -12,7 +12,7 @@ import {
   Layout,
   RequireAuth,
 } from "./pages";
-import { propertiesLoader, propertyLoader } from "./lib/loaders";
+import { profileLoader, propertiesLoader, propertyLoader } from "./lib/loaders";
 
 function App() {
   const router = createBrowserRouter([
@@ -42,6 +42,7 @@ function App() {
         {
           path: "/profile",
           element: <Profile />,
+          loader: profileLoader,
         },
         { path: "/profile/update", element: <EditProfile /> },
         { path: "/properties/add", element: <NewProperty /> },

@@ -14,3 +14,10 @@ export const propertiesLoader = async ({ request, params }) => {
     propertiesResponse: propertiesPromise,
   });
 };
+
+export const profileLoader = async () => {
+  const propertiesPromise = apiRequest(`/users/profile-posts`);
+  return defer({
+    propertiesResponse: propertiesPromise,
+  });
+};

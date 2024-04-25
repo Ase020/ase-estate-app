@@ -1,13 +1,11 @@
 import { Card } from "..";
-import { propertiesData } from "../../lib";
 import "./list.scss";
 
-function List() {
+function List({ posts }) {
   return (
     <div className="list">
-      {propertiesData.map((property) => (
-        <Card key={property.id} property={property} />
-      ))}
+      {Array.isArray(posts) &&
+        posts.map((property) => <Card key={property.id} property={property} />)}
     </div>
   );
 }

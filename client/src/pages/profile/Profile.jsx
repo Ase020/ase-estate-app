@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Suspense, useContext } from "react";
+import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
 
 import { Chat, List } from "../../components";
 import { AuthContext } from "../../context/AuthContext";
@@ -7,8 +7,9 @@ import apiRequest from "../../lib/apiRequest";
 import "./profile.scss";
 
 function Profile() {
-  const navigate = useNavigate();
+  const profileProperties = useLoaderData();
   const { currentUser, updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -51,12 +52,32 @@ function Profile() {
 
             <Link to="/properties/add">Create New Post</Link>
           </div>
-          <List />
+
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={profileProperties.propertiesResponse}
+              errorElement={<p>Error loading properties!</p>}
+            >
+              {(propertiesResponse) => (
+                <List posts={propertiesResponse.data.userPosts} />
+              )}
+            </Await>
+          </Suspense>
 
           <div className="title">
             <h2>Saved List</h2>
           </div>
-          <List />
+
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={profileProperties.propertiesResponse}
+              errorElement={<p>Error loading properties!</p>}
+            >
+              {(propertiesResponse) => (
+                <List posts={propertiesResponse.data.savedPosts} />
+              )}
+            </Await>
+          </Suspense>
         </div>
       </div>
 

@@ -89,7 +89,7 @@ export const savePost = async (req, res) => {
     if (savedPost) {
       await prisma.savedPost.delete({
         where: {
-          id: savePost.id,
+          id: savedPost.id,
         },
       });
       res.status(200).json({ message: "Post removed from saved list!" });
@@ -104,5 +104,28 @@ export const savePost = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: "Failed to save post!", error });
+  }
+};
+
+export const profilePosts = async (req, res) => {
+  const tokenUserId = req.params.userId;
+
+  try {
+    const userPosts = await prisma.post.findMany({
+      where: { userId: tokenUserId },
+    });
+
+    const userSavedPosts = await prisma.savedPost.findMany({
+      where: { userId: tokenUserId },
+      include: {
+        post: true,
+      },
+    });
+
+    const savedPosts = userSavedPosts.map((post) => post.post);
+
+    res.status(200).json({ userPosts, savedPosts });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to get Profile posts", error });
   }
 };
